@@ -40,7 +40,8 @@ app.delete('/api/cart', async(req, res)=>{
 })
 app.delete('/api/cart/:id', async(req, res) =>{
     const db = await req.app.get('db');
-    db.delete.deleteOne(req.params)
+    console.log(req.params.id)
+    db.delete.deleteOne(req.params.id)
     res.sendStatus(200);
 })
 app.get('/api/cartupdated/:id', async(req, res) =>{
