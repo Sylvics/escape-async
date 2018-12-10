@@ -15,8 +15,40 @@ app.get('/api/products', async(req, res) => {
 })
 app.post('/api/cartpost', async(req,res) =>{
 const db = await req.app.get('db');
-let result = await db.post.postCart(req.body.id, req.body.quantity)
+
+await db.post.postCart(req.body.id, req.body.quantity)
 res.sendStatus(200)
+})
+app.get('/api/cart', async(req, res) =>{
+    console.log('hit the cart endpoint')
+    const db = await req.app.get('db');
+    let results = await db.get.getCart();
+
+    res.send(results).status(200);
+})
+app.put('/api/cart/add/:id', async(req,res) => {
+    const db = await req.app.get('db');
+await db.put.addQuantity(req.params.id)
+ 
+    res.sendStatus(200);
+    
+})
+app.delete('/api/cart', async(req, res)=>{
+    const db = await req.app.get('db');
+    db.delete.deleteAll();
+    res.sendStatus(200);
+})
+app.delete('/api/cart/:id', async(req, res) =>{
+    const db = await req.app.get('db');
+    db.delete.deleteOne(req.params)
+    res.sendStatus(200);
+})
+app.get('/api/cartupdated/:id', async(req, res) =>{
+
+    const db = await req.app.get('db');
+    let [results] = await db.get.getCartItem(req.params.id);
+
+    res.send(results).status(200);
 })
 
 app.listen(SERVER_PORT, () => {

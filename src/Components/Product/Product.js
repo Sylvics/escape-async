@@ -19,6 +19,7 @@ class Product extends Component{
 
         }
         let res = await axios.post('/api/cartpost', cartItem)
+        console.log(res.status);
 
     }
     render(){
@@ -30,7 +31,7 @@ class Product extends Component{
                     
                 </div>
                 <div>${this.state.price}</div>
-                <button onClick={() => this.handleAdd}>Add to Cart</button>
+                <button onClick={() => this.handleAdd()}>Add to Cart</button>
             </div>
         )
     }
